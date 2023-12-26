@@ -1,9 +1,8 @@
 import cv2
 import matplotlib.pyplot as plt
-from google.colab.patches import cv2_imshow
 
 # Load an image
-image_path = "/content/Trance.png"  # Replace with the actual path
+image_path = "" # Replace with the actual path
 image = cv2.imread(image_path)
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
@@ -20,3 +19,16 @@ saliencyMap = (saliencyMap * 255).astype("uint8")
 plt.imshow(image)
 plt.show()
 plt.imshow(saliencyMap)
+
+# Write (r, g, b) pixel values to a text file
+output_file_path = ""  # Replace with the desired output file path
+
+with open(output_file_path, 'w') as file:
+    height, width, _ = image.shape
+    for y in range(height):
+        for x in range(width):
+            r, g, b = image[y, x]
+            file.write(f"({r}, {g}, {b}) ")
+        file.write('\n')
+
+print(f"Saliency values have been written to: {output_file_path}")
