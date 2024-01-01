@@ -20,15 +20,20 @@ plt.imshow(image)
 plt.show()
 plt.imshow(saliencyMap)
 
+# Set new widths and heights to downscale the image
+w = 200
+h = 100
+saliencyMap = cv2.resize(saliencyMap, (w, h))
+
 # Write (r, g, b) pixel values to a text file
 output_file_path = ""  # Replace with the desired output file path
 
 with open(output_file_path, 'w') as file:
-    height, width, _ = image.shape
+    height, width = saliencyMap.shape
     for y in range(height):
         for x in range(width):
-            r, g, b = image[y, x]
-            file.write(f"({r}, {g}, {b}) ")
+            value = saliencyMap[y, x]
+            file.write(f"{value},")
         file.write('\n')
 
 print(f"Saliency values have been written to: {output_file_path}")
